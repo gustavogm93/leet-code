@@ -9,13 +9,161 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Chapter1 {
+public class ArrayAndString {
 
 	public static void main(String[] args) throws InterruptedException {
 
+		//charRepeatedThreeTimes("aaba");
+	/*  a 7
+		b 1
+		e 1
+		d 1
+		h 8
+		m 3
+		z 1*/
+		stringCompression("aaaaaaabedhhhhhhhhmmmz");
 	}
 
 	
+	
+	
+	static String stringCompression(String a) {
+		
+		char lastCharAdd = a.charAt(0);
+		char endChar = a.charAt(a.length() - 1);
+
+		int count = 0;
+		StringBuilder strBuilder = new StringBuilder();
+		
+
+		LinkedHashMap<Character, Integer> letters = new LinkedHashMap<>();
+		
+		for(char i: a.toCharArray()) {
+		letters.merge(i, 1, Integer::sum);
+		}
+			
+		
+		
+		System.out.println(letters.toString());
+		
+		return strBuilder.toString();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	static boolean oneEdit(String a, String b) {
+		int diff = Math.abs(a.length() - b.length());
+		int count = 0;
+		
+		if(diff > 1 || diff < 0)
+			return false;
+		
+		//Edited
+		if(diff == 0) {
+		for(int i=0 ; i<a.length(); i++)	
+			
+			if(a.charAt(i) != b.charAt(i))
+				count ++;
+			
+			if(count > 1)
+	     		return false;
+		}
+		
+		 
+
+		//Deleted
+		if(diff == 1) {
+			
+			 a= a.length() > b.length() ? a : b;
+			  b = a.length() < b.length() ? b : a;
+			  
+			for(int i = 0, j =0; i<a.length() && j< b.length() ; i++) {
+				
+				if(a.charAt(i) == b.charAt(j)) { 
+					j++;
+				}
+				else { 
+				count++;
+				}
+				
+				if(count > 1)
+				return false;
+
+			}		
+			
+		}
+		return true;
+		
+	}
+	
+	
+	static boolean charRepeatedThreeTimes(String phrase) {
+		
+		int[] table = new int[Character.getNumericValue('z') - Character.getNumericValue('a')];
+		
+		for(char c: phrase.toCharArray()) {
+			
+			if(c != -1) {
+				int x = Character.getNumericValue(c);
+				
+				table[x]++;
+				if(table[x] == 3) {
+					System.out.format(" %s -> 3X", c);
+				}
+			}
+			
+		}
+		
+		return true;
+	}
+
+	static boolean writedBackfowardIsSame(String s1, String s2) {
+
+		if (s1.length() != s2.length())
+			return false;
+
+		for (int i = 0, j = s1.length() - 1; i < s1.length(); i++, j--) {
+
+			if (s1.charAt(i) != s2.charAt(j))
+				return false;
+		}
+
+		return true;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	static boolean isPermutationOfPalindrome(String phrase) {
+		int countOdd = 0;
+		int[] table = new int[Character.getNumericValue('z') - Character.getNumericValue('a') + 5];
+		
+		for (char c : phrase.toCharArray()) {
+			int x = Character.getNumericValue(c);
+			if (x != -1) {
+				table[x]++;
+				if (table[x] % 2 == 1) {
+					countOdd++;
+				} else {
+					countOdd--;
+				}
+			}
+		}
+		return countOdd <= 1;
+	}
 
 /** 
  * Replace all spaces to %20
