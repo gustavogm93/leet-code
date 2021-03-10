@@ -1,5 +1,6 @@
 package CrackingTheCodeInterview;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,119 +14,250 @@ public class ArrayAndString {
 
 	public static void main(String[] args) throws InterruptedException {
 
-		//charRepeatedThreeTimes("aaba");
-	/*  a 7
-		b 1
-		e 1
-		d 1
-		h 8
-		m 3
-		z 1*/
-		stringCompression("aaaaaaabedhhhhhhhhmmmz");
+		// charRepeatedThreeTimes("aaba");
+		/*
+		 * a 7 b 1 e 1 d 1 h 8 m 3 z 1
+		 */
+
+		int[][] a = { { 1, 2, 3, 0 }, { 5, 6, 7, 8 }, { 9, 0, 11, 12 }, { 0, 14, 15, 16 } };
+		zeroInColumnAndRows(a);
 	}
 
 	
 	
 	
-	static String stringCompression(String a) {
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	static void zeroInColumnAndRows(int[][] matrix) {
+		int size = matrix.length;
 		
+		
+		
+		List<Integer> rows = new ArrayList<>();
+		List<Integer> cols = new ArrayList<>();
+ 		for (int i = 0; i < size; i++) {
+
+			for (int j = 0; j < size; j++) {
+				if(matrix[i][j] == 0) {
+					rows.add(i);
+					cols.add(j);
+				}
+			}
+		}
+
+		for(int i=0; i<size; i++) {
+			
+			for(int j=0; j<size; j++) {
+				
+				if(rows.contains(i))
+					matrix[i][j] = 0;
+				else {
+					if(cols.contains(j))
+						matrix[i][j] = 0; 
+				}
+				System.out.print(matrix[i][j] + ", ");
+			}
+			
+			System.out.println("" );
+		}
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	static boolean rotate(int[][] matrix) {
+		if (matrix.length == 0 || matrix.length != matrix[0].length)
+
+			return false;
+
+		int n = matrix.length;
+		for (int layer = 0; layer < n / 2; layer++) {
+
+			int first = layer;
+			int last = n - 1 - layer;
+
+			for (int i = first; i < last; i++) {
+
+				int offset = i - first;
+
+				int top = matrix[first][i];
+
+				// left -> top
+				matrix[first][i] = matrix[last - offset][first];
+
+				// bottom -> left
+				matrix[last - offset][first] = matrix[last][last - offset];
+
+				// right -> bottom
+				matrix[last][last - offset] = matrix[i][last];
+
+				// top -> right
+				matrix[i][last] = top; // right<- saved top
+			}
+		}
+
+		for (int i = 0; i < n; i++) {
+
+			for (int j = 0; j < n; j++) {
+				System.out.print(matrix[i][j] + ", ");
+
+			}
+			System.out.println("");
+		}
+
+		return true;
+	}
+
+	static void Grades(int[][] ar) {
+
+		int size = ar[0].length;
+		int max = size - 1;
+		int[][] b = new int[4][4];
+
+		for (int i = 0; i < size; i++) {
+
+			for (int j = 0; j < size; j++) {
+				b[j][max - i] = ar[i][j];
+			}
+		}
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+			}
+		}
+	}
+
+	static void swape(int[][] ar, int i, int j) {
+
+		int temp = ar[i][j];
+		ar[i][j] = ar[j][i];
+		ar[j][i] = temp;
+
+	}
+	
+	
+	/**
+	 * Compression of a string aaaabbbb -> a4b4
+	 */
+	static String stringCompression(String a) {
+
 		char lastCharAdd = a.charAt(0);
 		char endChar = a.charAt(a.length() - 1);
 
 		int count = 0;
 		StringBuilder strBuilder = new StringBuilder();
-		
 
 		LinkedHashMap<Character, Integer> letters = new LinkedHashMap<>();
-		
-		for(char i: a.toCharArray()) {
-		letters.merge(i, 1, Integer::sum);
+
+		for (char i : a.toCharArray()) {
+			letters.merge(i, 1, Integer::sum);
 		}
-			
-		
-		
+
 		System.out.println(letters.toString());
-		
+
 		return strBuilder.toString();
 	}
+
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/**
+	 * check if two string has almost one dif can be deleted char or replace char
+	 *  "pale" -> "pal"  ---> only 1 char delete OK
+	 */
 	static boolean oneEdit(String a, String b) {
 		int diff = Math.abs(a.length() - b.length());
 		int count = 0;
-		
-		if(diff > 1 || diff < 0)
+
+		if (diff > 1 || diff < 0)
 			return false;
-		
-		//Edited
-		if(diff == 0) {
-		for(int i=0 ; i<a.length(); i++)	
-			
-			if(a.charAt(i) != b.charAt(i))
-				count ++;
-			
-			if(count > 1)
-	     		return false;
-		}
-		
-		 
 
-		//Deleted
-		if(diff == 1) {
-			
-			 a= a.length() > b.length() ? a : b;
-			  b = a.length() < b.length() ? b : a;
-			  
-			for(int i = 0, j =0; i<a.length() && j< b.length() ; i++) {
-				
-				if(a.charAt(i) == b.charAt(j)) { 
-					j++;
-				}
-				else { 
-				count++;
-				}
-				
-				if(count > 1)
+		// Edited
+		if (diff == 0) {
+			for (int i = 0; i < a.length(); i++)
+
+				if (a.charAt(i) != b.charAt(i))
+					count++;
+
+			if (count > 1)
 				return false;
+		}
 
-			}		
-			
+		// Deleted
+		if (diff == 1) {
+
+			a = a.length() > b.length() ? a : b;
+			b = a.length() < b.length() ? b : a;
+
+			for (int i = 0, j = 0; i < a.length() && j < b.length(); i++) {
+
+				if (a.charAt(i) == b.charAt(j)) {
+					j++;
+				} else {
+					count++;
+				}
+
+				if (count > 1)
+					return false;
+
+			}
+
 		}
 		return true;
-		
+
 	}
+
 	
-	
+	/**
+	 *check if string has 3 chars equals
+	 */
 	static boolean charRepeatedThreeTimes(String phrase) {
-		
+
 		int[] table = new int[Character.getNumericValue('z') - Character.getNumericValue('a')];
-		
-		for(char c: phrase.toCharArray()) {
-			
-			if(c != -1) {
+
+		for (char c : phrase.toCharArray()) {
+
+			if (c != -1) {
 				int x = Character.getNumericValue(c);
-				
+
 				table[x]++;
-				if(table[x] == 3) {
+				if (table[x] == 3) {
 					System.out.format(" %s -> 3X", c);
 				}
 			}
-			
+
 		}
-		
+
 		return true;
 	}
 
+	
+	/**
+	 *check if string in backfoward is same to original
+	 */
 	static boolean writedBackfowardIsSame(String s1, String s2) {
 
 		if (s1.length() != s2.length())
@@ -139,18 +271,14 @@ public class ArrayAndString {
 
 		return true;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+	/**
+	 * Check if string is permutation of a palindrome
+	 */
 	static boolean isPermutationOfPalindrome(String phrase) {
 		int countOdd = 0;
 		int[] table = new int[Character.getNumericValue('z') - Character.getNumericValue('a') + 5];
-		
+
 		for (char c : phrase.toCharArray()) {
 			int x = Character.getNumericValue(c);
 			if (x != -1) {
@@ -165,50 +293,48 @@ public class ArrayAndString {
 		return countOdd <= 1;
 	}
 
-/** 
- * Replace all spaces to %20
- * Input:  "Mr John Smith    ";
- * Output: "Mr%20John%20Smith" 
- */
-public static String urlFy(char[] s) { 
+	/**
+	 * Replace all spaces to %20 Input: "Mr John Smith "; Output:
+	 * "Mr%20John%20Smith"
+	 */
+	public static String urlFy(char[] s) {
 
-	long startTime = System.currentTimeMillis();
+		long startTime = System.currentTimeMillis();
 
-	StringBuilder strbr = new StringBuilder();
-	int countSpace = 0;
-	int lastPositionOfAnyLetter = 0;
+		StringBuilder strbr = new StringBuilder();
+		int countSpace = 0;
+		int lastPositionOfAnyLetter = 0;
 
-	for (int j = s.length - 1; j > 1; j--) {
-		if (s[j] != ' ') {
-			lastPositionOfAnyLetter = j;
-			break;
-		}
-	}
-
-	for (int i = 0; i <= lastPositionOfAnyLetter; i++) {
-
-		if (s[i] == ' ') {
-			if (countSpace == 0) {
-				countSpace += 1;
-				strbr.append("%20");
+		for (int j = s.length - 1; j > 1; j--) {
+			if (s[j] != ' ') {
+				lastPositionOfAnyLetter = j;
+				break;
 			}
-		} else {
-			countSpace = 0;
-			strbr.append(s[i]);
 		}
 
-	}
+		for (int i = 0; i <= lastPositionOfAnyLetter; i++) {
 
-	long endTime = System.currentTimeMillis();
+			if (s[i] == ' ') {
+				if (countSpace == 0) {
+					countSpace += 1;
+					strbr.append("%20");
+				}
+			} else {
+				countSpace = 0;
+				strbr.append(s[i]);
+			}
 
-	long timeElapsed = endTime - startTime;
+		}
 
-	System.out.println("Execution time in milliseconds: " + timeElapsed);
+		long endTime = System.currentTimeMillis();
+
+		long timeElapsed = endTime - startTime;
+
+		System.out.println("Execution time in milliseconds: " + timeElapsed);
 
 		return strbr.toString();
 	}
-	
-	
+
 	/**
 	 * Regex to get String with chars beetween a-z, without symbols char
 	 * 
