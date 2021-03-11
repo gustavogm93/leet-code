@@ -19,77 +19,98 @@ public class ArrayAndString {
 		 * a 7 b 1 e 1 d 1 h 8 m 3 z 1
 		 */
 
-		int[][] a = { { 1, 2, 3, 0 }, { 5, 6, 7, 8 }, { 9, 0, 11, 12 }, { 0, 14, 15, 16 } };
-		zeroInColumnAndRows(a);
+		/*int[][] a = { { 1, 2, 3, 0 }, { 5, 6, 7, 8 }, { 9, 0, 11, 12 }, { 0, 14, 15, 16 } };
+		zeroInColumnAndRows(a); */
+		
+		isPermutationOfPalindrome("taco cat");
+
 	}
 
 	
 	
+	public static boolean checkRotation(String st1, String st2) {  
+        if (st1.length() != st2.length()) {  
+            return false;  
+        }  
+        String st3 = st1 + st1;  
+        if (st3.contains(st2))  
+            return true;  
+        else  
+            return false;  
+    }  
 	
 	
+	static boolean isSubstringRotation(String a, String b) {
 	
+		if(a.length() != b.length())
+			return false;
+		
+		int j=0;
+		StringBuilder strWrongPositionated = new StringBuilder();
+		StringBuilder strCorrectPositionated = new StringBuilder();
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		for(int i=0; i<a.length(); i ++) {
+			
+			if(a.charAt(i) != b.charAt(j)) {
+				strWrongPositionated.append(a.charAt(i));
+			}
+			else {
+				strCorrectPositionated.append(a.charAt(i));
+				j++;
+			}
+			
+			
+		}
+		
+		System.out.println(strWrongPositionated);
+		System.out.println(strCorrectPositionated);
+		
+		return strWrongPositionated.toString()
+                                   .concat(strCorrectPositionated.toString())
+                                   .equals(a);
+
+	}
+
+	/**
+	 * Zero in columns and rows
+	 */
 	static void zeroInColumnAndRows(int[][] matrix) {
 		int size = matrix.length;
-		
-		
-		
+
 		List<Integer> rows = new ArrayList<>();
 		List<Integer> cols = new ArrayList<>();
- 		for (int i = 0; i < size; i++) {
+		for (int i = 0; i < size; i++) {
 
 			for (int j = 0; j < size; j++) {
-				if(matrix[i][j] == 0) {
+				if (matrix[i][j] == 0) {
 					rows.add(i);
 					cols.add(j);
 				}
 			}
 		}
 
-		for(int i=0; i<size; i++) {
-			
-			for(int j=0; j<size; j++) {
-				
-				if(rows.contains(i))
+		for (int i = 0; i < size; i++) {
+
+			for (int j = 0; j < size; j++) {
+
+				if (rows.contains(i))
 					matrix[i][j] = 0;
 				else {
-					if(cols.contains(j))
-						matrix[i][j] = 0; 
+					if (cols.contains(j))
+						matrix[i][j] = 0;
 				}
 				System.out.print(matrix[i][j] + ", ");
 			}
-			
-			System.out.println("" );
+
+			System.out.println("");
 		}
-		
-		
-		
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	/**
+	 * rotate 90° book solution
+	 */
 	static boolean rotate(int[][] matrix) {
 		if (matrix.length == 0 || matrix.length != matrix[0].length)
 
@@ -133,6 +154,9 @@ public class ArrayAndString {
 		return true;
 	}
 
+	/**
+	 * Rotate 90° matrix array
+	 */
 	static void Grades(int[][] ar) {
 
 		int size = ar[0].length;
@@ -151,15 +175,6 @@ public class ArrayAndString {
 		}
 	}
 
-	static void swape(int[][] ar, int i, int j) {
-
-		int temp = ar[i][j];
-		ar[i][j] = ar[j][i];
-		ar[j][i] = temp;
-
-	}
-	
-	
 	/**
 	 * Compression of a string aaaabbbb -> a4b4
 	 */
@@ -182,11 +197,9 @@ public class ArrayAndString {
 		return strBuilder.toString();
 	}
 
-	
-	
 	/**
 	 * check if two string has almost one dif can be deleted char or replace char
-	 *  "pale" -> "pal"  ---> only 1 char delete OK
+	 * "pale" -> "pal" ---> only 1 char delete OK
 	 */
 	static boolean oneEdit(String a, String b) {
 		int diff = Math.abs(a.length() - b.length());
@@ -230,9 +243,8 @@ public class ArrayAndString {
 
 	}
 
-	
 	/**
-	 *check if string has 3 chars equals
+	 * check if string has 3 chars equals
 	 */
 	static boolean charRepeatedThreeTimes(String phrase) {
 
@@ -254,9 +266,8 @@ public class ArrayAndString {
 		return true;
 	}
 
-	
 	/**
-	 *check if string in backfoward is same to original
+	 * check if string in backfoward is same to original
 	 */
 	static boolean writedBackfowardIsSame(String s1, String s2) {
 
