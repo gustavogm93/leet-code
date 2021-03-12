@@ -1,14 +1,21 @@
 package CrackingTheCodeInterview;
-	
 
+import java.util.LinkedList;
 
 public class LinkedListProblems {
 	
 	
 	public static void main(String[] args) {
-		LinkedListProblems Linked = new LinkedListProblems();
+		/*LinkedListProblems Linked = new LinkedListProblems();
 		Linked.nodeTest();
-
+		*/
+		var a = new LinkedList<String>();
+		a.add("1");
+		a.add("2");
+		a.add("3");
+		a.remove("2");
+		//a.removeFirstOccurrence("perro");
+		a.toString();
 	}
 
 	void nodeTest() {
