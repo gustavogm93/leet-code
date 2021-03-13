@@ -18,6 +18,35 @@ public class LinkedListProblems {
 		a.toString();
 	}
 
+	
+	
+	void removeDuplicates(Node n) {
+		Node node = n;
+		Node nodeToCheck;
+		while(node.next != null) {
+			int value = node.data;
+			
+			
+			
+			
+			if(node.data == node.next.data)
+			
+			
+		
+				
+			node = node.next;
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	void nodeTest() {
 		
 		// Node [5] --> Next --> Node [10] -- Next --> NULL
