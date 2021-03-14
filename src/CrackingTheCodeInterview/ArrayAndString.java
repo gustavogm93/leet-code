@@ -19,25 +19,25 @@ public class ArrayAndString {
 		 * a 7 b 1 e 1 d 1 h 8 m 3 z 1
 		 */
 
-		/*int[][] a = { { 1, 2, 3, 0 }, { 5, 6, 7, 8 }, { 9, 0, 11, 12 }, { 0, 14, 15, 16 } };
-		zeroInColumnAndRows(a); */
+		int[][] a = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 } };
+		/*zeroInColumnAndRows(a); */
 		
-		isPermutationOfPalindrome("taco cat");
+		zeroInColumnAndRows(a);
 
 	}
 
 	
 	
-	public static boolean checkRotation(String st1, String st2) {  
-        if (st1.length() != st2.length()) {  
-            return false;  
-        }  
-        String st3 = st1 + st1;  
-        if (st3.contains(st2))  
-            return true;  
-        else  
-            return false;  
-    }  
+	boolean isRotation(String sl, String s2) {
+ int len = sl.length();
+ /* Check that sl and s2 are equal length and not empty*/
+ if (len == s2.length() && len > 0) {
+ /* Concatenate sl and sl within new buffer */
+ String slsl = sl + sl;
+ return slsl.contains(s2);
+ }
+ return false;
+ } 
 	
 	
 	static boolean isSubstringRotation(String a, String b) {
